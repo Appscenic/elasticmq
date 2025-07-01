@@ -48,6 +48,7 @@ val pekkoSlf4j = "org.apache.pekko" %% "pekko-slf4j" % pekkoVersion
 val pekkoStreams = "org.apache.pekko" %% "pekko-stream" % pekkoVersion
 val pekkoTestkit = "org.apache.pekko" %% "pekko-testkit" % pekkoVersion % "test"
 val pekkoHttp = "org.apache.pekko" %% "pekko-http" % pekkoHttpVersion
+val pekkoCors = "org.apache.pekko" %% "pekko-http-cors" % pekkoHttpVersion
 val sprayJson = "io.spray" %% "spray-json" % "1.3.6"
 val pekkoHttpSprayJson = "org.apache.pekko" %% "pekko-http-spray-json" % pekkoHttpVersion
 val pekkoHttpTestkit = "org.apache.pekko" %% "pekko-http-testkit" % pekkoHttpVersion % "test"
@@ -183,6 +184,7 @@ lazy val restSqs: Project = (project in file("rest/rest-sqs"))
         pekkoActor,
         pekkoSlf4j,
         pekkoHttp,
+        pekkoCors,
         pekkoStreams,
         sprayJson,
         pekkoHttpSprayJson,

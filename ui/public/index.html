@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="ElasticMQ UI"
-    />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>ElasticMQ</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElasticMQ Management UI</title>
+    <link href="ui.css" rel="stylesheet" />
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <h2 id="mainTitle">Queue Management</h2>
+    </div>
+
+    <div class="main-content">
+        <div id="status"></div>
+
+        <div class="controls">
+            <h2>Queues</h2>
+            <button class="btn btn-primary" onclick="loadQueues()">
+                <span class="loading" style="display: none;"></span>
+                Refresh Queues
+            </button>
+        </div>
+
+        <div id="queues" class="queue-grid">
+            <div class="empty-state">
+                <h3>No queues loaded</h3>
+                <p>Loading queues automatically...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="ui.js"></script>
+
+</body>
 </html>

@@ -34,6 +34,7 @@ import scala.concurrent.{Await, Future}
 import scala.util.control.NonFatal
 import scala.util.{Failure, Success, Try}
 import scala.xml._
+import org.apache.pekko.http.cors.scaladsl.CorsDirectives._
 
 /** By default: <li> <ul>for `socketAddress`: when started, the server will bind to `localhost:9324` </ul> <ul>for
   * `serverAddress`: returned queue addresses will use `http://localhost:9324` as the base address.</ul> <ul>for
@@ -239,9 +240,14 @@ case class TheSQSRestServerBuilder(
                 val marshallerDependencies = MarshallerDependencies(protocol, version)
                 if (config.debug) {
                   logRequestResult("") {
+                    cors() {
+                      rawRoutes(p)(marshallerDependencies)
+                    }
+                  }
+                } else
+                  cors() {
                     rawRoutes(p)(marshallerDependencies)
                   }
-                } else rawRoutes(p)(marshallerDependencies)
               }
             }
           }
