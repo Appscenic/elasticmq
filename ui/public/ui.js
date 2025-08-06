@@ -91,6 +91,11 @@
                       'AttributeName.2': 'ApproximateNumberOfMessagesNotVisible'
                   });
 
+                  // for production use https
+                  if (queueUrl.includes("http://mq.appscenic.com")) {
+                    queueUrl = "https://" + queueUrl.substring(7);
+                  }
+
                   const attributes = parseAttributesResponse(attributesResponse);
                   const queueName = queueUrl.split('/').pop();
                   const visibleMessages = attributes.ApproximateNumberOfMessages || '0';
