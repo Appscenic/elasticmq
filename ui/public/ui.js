@@ -87,23 +87,22 @@
 
           const queueRows = await Promise.all(queueUrls.map(async (queueUrl) => {
               try {
+                  // use https for backend
+                  if (queueUrl.includes("http://")) {
+                    queueUrl = "https://" + queueUrl.substring(7);
+                  }
+
                   const attributesResponse = await makeElasticMQRequest('GetQueueAttributes', queueUrl, {
                       'AttributeName.1': 'ApproximateNumberOfMessages',
                       'AttributeName.2': 'ApproximateNumberOfMessagesNotVisible'
                   });
 
-                  // for production use https
-                  var httpsQueueUrl = queueUrl;
-                  if (queueUrl.includes("http://")) {
-                    httpsQueueUrl = "https://" + queueUrl.substring(7);
-                  }
-
                   const attributes = parseAttributesResponse(attributesResponse);
-                  const queueName = httpsQueueUrl.split('/').pop();
+                  const queueName = queueUrl.split('/').pop();
                   const visibleMessages = attributes.ApproximateNumberOfMessages || '0';
                   const invisibleMessages = attributes.ApproximateNumberOfMessagesNotVisible || '0';
 
-                  return createQueueRow(queueName, httpsQueueUrl, visibleMessages, invisibleMessages);
+                  return createQueueRow(queueName, queueUrl, visibleMessages, invisibleMessages);
               } catch (error) {
                   const queueName = queueUrl.split('/').pop();
                   return createQueueRow(queueName, queueUrl, 'Error', 'Error');
