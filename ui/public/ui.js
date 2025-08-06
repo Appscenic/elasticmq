@@ -93,16 +93,17 @@
                   });
 
                   // for production use https
-                  if (queueUrl.includes("http://mq.appscenic.com")) {
-                    queueUrl = "https://" + queueUrl.substring(7);
+                  var httpsQueueUrl = queueUrl;
+                  if (queueUrl.includes("http://")) {
+                    httpsQueueUrl = "https://" + queueUrl.substring(7);
                   }
 
                   const attributes = parseAttributesResponse(attributesResponse);
-                  const queueName = queueUrl.split('/').pop();
+                  const queueName = httpsQueueUrl.split('/').pop();
                   const visibleMessages = attributes.ApproximateNumberOfMessages || '0';
                   const invisibleMessages = attributes.ApproximateNumberOfMessagesNotVisible || '0';
 
-                  return createQueueRow(queueName, queueUrl, visibleMessages, invisibleMessages);
+                  return createQueueRow(queueName, httpsQueueUrl, visibleMessages, invisibleMessages);
               } catch (error) {
                   const queueName = queueUrl.split('/').pop();
                   return createQueueRow(queueName, queueUrl, 'Error', 'Error');
