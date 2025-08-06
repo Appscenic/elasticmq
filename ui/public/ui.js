@@ -1,8 +1,9 @@
   // Automatically set endpoint based on current window location
   const getDefaultEndpoint = () => {
       const protocol = window.location.protocol;
-      const hostname = window.location.hostname || 'localhost';
-      return `${protocol}//${hostname}:9324`;
+      var hostname = window.location.hostname || 'localhost';
+      hostname = hostname.replace("-ui", "");
+      return `${protocol}//${hostname}`;
   };
 
   let currentEndpoint = getDefaultEndpoint();
